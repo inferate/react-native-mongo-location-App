@@ -4,17 +4,13 @@ interface IAuthProvider {
   children: ReactNode;
 }
 
-interface IOptionsProvider {
-  reducer: React.Reducer<{}, {}>;
-  actions: any;
-  defaultValue: object;
-}
 export const DataContext = (reducer: any, actions: any, defaultValue: any) => {
   const Context = createContext({});
 
   const Provider = ({children}: IAuthProvider) => {
     const [state, dispatch] = useReducer(reducer, defaultValue);
     const boundActions: any = {};
+    console.log(typeof boundActions);
     for (let key in actions) {
       boundActions[key] = actions[key](dispatch);
     }

@@ -3,7 +3,8 @@ import {createAppContainer, createSwitchNavigator} from 'react-navigation';
 import {createStackNavigator} from 'react-navigation-stack';
 import {createBottomTabNavigator} from 'react-navigation-tabs';
 import {ThemeProvider} from 'styled-components';
-import {Provider as AuthProvider} from './src/context/AuthProvider';
+import {Provider as AuthProvider} from './src/context/AuthContext';
+import {setNavigator} from './src/navigation/navigationRef';
 import AccountScreen from './src/screens/AccountScreen';
 import CreateTrack from './src/screens/CreateTrack';
 import SigninScreen from './src/screens/SigninScreen';
@@ -35,7 +36,11 @@ export default () => {
   return (
     <AuthProvider>
       <ThemeProvider theme={theme}>
-        <App />
+        <App
+          ref={navigator => {
+            setNavigator(navigator);
+          }}
+        />
       </ThemeProvider>
     </AuthProvider>
   );

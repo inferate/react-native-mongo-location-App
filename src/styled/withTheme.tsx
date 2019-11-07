@@ -9,7 +9,7 @@ export const theme = {
   textStyle: {
     primary: '#fff',
     secondary: '#680A65',
-    thirdy: '#01030E',
+    thirdy: '#4388CA',
     empty: '#F0D3F7',
   },
   backgroundStyle: {

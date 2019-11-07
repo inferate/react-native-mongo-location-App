@@ -46,3 +46,6 @@ export const TextError = styled(Text)`
   margin:3px
   
 `;
+export const TextLink = styled(Text)`
+  color: ${props => props.theme.textStyle.thirdy};
+`;
