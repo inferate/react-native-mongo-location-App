@@ -1,57 +1,36 @@
-import React, {useContext, useState} from 'react';
-import {Button, Input} from 'react-native-elements';
-import {
-  NavigationScreenComponent,
-  NavigationScreenProp,
-} from 'react-navigation';
-import {Context as AuthContext} from '../context/AuthProvider';
-import {ThemeContext} from '../context/ThemeContext';
-import {
-  GetIcon,
-  Heading,
-  ScreenWrapper,
-  TextError,
-  TextWrapper,
-} from '../styled/MainStyles';
+import React, {useContext} from 'react';
+import {TouchableOpacity} from 'react-native';
+import {NavigationParams, NavigationScreenProp} from 'react-navigation';
+import {NavigationStackOptions} from 'react-navigation-stack';
+import AuthForm from '../components/AuthForm';
+import {Context as AuthContext} from '../context/AuthContext';
+import {INavigationRoutes} from '../enums/ENavigation';
+import {ScreenWrapper, TextLink, TextWrapper} from '../styled/MainStyles';
 
-interface INavigation extends NavigationScreenProp<{}> {
-  navigation: {};
-  navigationOptions: {};
+interface INavigation
+  extends NavigationScreenProp<NavigationStackOptions, NavigationParams> {
+  navigation: object;
+  navigationOptions?: object;
 }
 
-const SignupScreen: NavigationScreenComponent<{}, INavigation> = (
-  props,
-  {navigation},
-) => {
+const SignupScreen: React.FC<INavigation> = (navigation, props) => {
   const {state, signup}: any = useContext(AuthContext);
-  const themeContext = useContext(ThemeContext);
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-
   return (
     <>
       <ScreenWrapper>
-        <TextWrapper>
-          <Heading>Sign Up</Heading>
-          <GetIcon name={props.name} color={themeContext.icons.main} />
-        </TextWrapper>
-        <Input
-          label="email"
-          value={email}
-          onChangeText={setEmail}
-          autoCapitalize="none"
-          autoCorrect={false}></Input>
-        <Input
-          secureTextEntry
-          label="password"
-          value={password}
-          onChangeText={setPassword}
-          autoCapitalize="none"
-          autoCorrect={false}></Input>
-        {state.errorMessage ? (
-          <TextError>{state.errorMessage}</TextError>
-        ) : null}
-        <Button title="Sign Up!" onPress={() => signup({email, password})} />
+        <AuthForm
+          headerText="Sign Up!"
+          errorMessage={state.errorMessage}
+          onSubmitForm={signup}
+          submitButtonText="Sign up"
+          name={props.name}
+        />
+        <TouchableOpacity
+          onPress={() => navigation.navigate(INavigationRoutes.Signin)}>
+          <TextWrapper>
+            <TextLink>Already have an account Sign in intstead.</TextLink>
+          </TextWrapper>
+        </TouchableOpacity>
       </ScreenWrapper>
     </>
   );
