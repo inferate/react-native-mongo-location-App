@@ -1,13 +1,17 @@
-import React from 'react';
-import {Text, View} from 'react-native';
+import React, {useContext} from 'react';
+import {Button} from 'react-native';
+import {Context as AuthContext} from '../context/AuthContext';
+import {Heading, ScreenWrapper, TextWrapper} from '../styled';
 
 const AccountScreen: React.FC = () => {
+  const {signout}: any = useContext(AuthContext);
+
   return (
-    <>
-      <View>
-        <Text>AccountScreen</Text>
-      </View>
-    </>
+    <ScreenWrapper>
+      <Heading>Account Screen</Heading>
+      <TextWrapper />
+      <Button title="Sign out" onPress={signout} />
+    </ScreenWrapper>
   );
 };
 
