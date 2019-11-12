@@ -1,19 +1,45 @@
-import React from 'react';
-import {Button} from 'react-native-elements';
-import {NavigationParams, NavigationScreenProp} from 'react-navigation';
-import {Heading} from '../styled';
+import React, {useContext} from 'react';
+import {
+  NavigationEvents,
+  NavigationParams,
+  NavigationScreenProp,
+} from 'react-navigation';
+import AuthForm from '../components/AuthForm';
+import NavigationLink from '../components/NavigationLink';
+import {Context as AuthContext} from '../context/AuthContext';
+import {INavigationRoutes} from '../enums/ENavigation';
+import {MainBackground, ScreenWrapper} from '../styled/MainStyles';
 
-interface INavigation {
+interface ISignup {
   navigation: NavigationScreenProp<NavigationParams>;
+  name: string;
 }
 
-const SigninScreen: React.FC<INavigation> = ({navigation}) => {
+const SigninScreen: React.FC<ISignup> = ({name}) => {
+  const {state, signin, clearErrorMessage}: any = useContext(AuthContext);
   return (
     <>
-      <Heading>Sign in</Heading>
-      <Button title="GO To SIn" onPress={() => navigation.navigate('Signup')} />
+      <MainBackground>
+        <ScreenWrapper>
+          <NavigationEvents onWillBlur={clearErrorMessage} />
+          <AuthForm
+            headerText="Sign in!"
+            errorMessage={state.errorMessage}
+            onSubmitForm={signin}
+            submitButtonText="Sign in"
+            name="laptop"
+          />
+          <NavigationLink
+            textLink="Don`t have an acconut? Sign up instead."
+            routeName={INavigationRoutes.Signup}
+          />
+        </ScreenWrapper>
+      </MainBackground>
     </>
   );
 };
 
+SigninScreen.navigationOptions = {
+  header: null,
+};
 export default SigninScreen;

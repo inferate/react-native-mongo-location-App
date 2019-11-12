@@ -1,37 +1,42 @@
 import React, {useContext} from 'react';
-import {TouchableOpacity} from 'react-native';
-import {NavigationParams, NavigationScreenProp} from 'react-navigation';
-import {NavigationStackOptions} from 'react-navigation-stack';
+import {
+  NavigationEvents,
+  NavigationParams,
+  NavigationScreenProp,
+} from 'react-navigation';
 import AuthForm from '../components/AuthForm';
+import NavigationLink from '../components/NavigationLink';
 import {Context as AuthContext} from '../context/AuthContext';
 import {INavigationRoutes} from '../enums/ENavigation';
-import {ScreenWrapper, TextLink, TextWrapper} from '../styled/MainStyles';
+import {MainBackground, ScreenWrapper} from '../styled/MainStyles';
 
-interface INavigation
-  extends NavigationScreenProp<NavigationStackOptions, NavigationParams> {
-  navigation: object;
-  navigationOptions?: object;
+interface ISignup {
+  navigation: NavigationScreenProp<NavigationParams>;
+  name: string;
 }
 
-const SignupScreen: React.FC<INavigation> = (navigation, props) => {
-  const {state, signup}: any = useContext(AuthContext);
+const SignupScreen: React.FC<ISignup> = ({name}) => {
+  const {state, signup, clearErrorMessage}: any = useContext(AuthContext);
+
+  console.log(state);
   return (
     <>
-      <ScreenWrapper>
-        <AuthForm
-          headerText="Sign Up!"
-          errorMessage={state.errorMessage}
-          onSubmitForm={signup}
-          submitButtonText="Sign up"
-          name={props.name}
-        />
-        <TouchableOpacity
-          onPress={() => navigation.navigate(INavigationRoutes.Signin)}>
-          <TextWrapper>
-            <TextLink>Already have an account Sign in intstead.</TextLink>
-          </TextWrapper>
-        </TouchableOpacity>
-      </ScreenWrapper>
+      <MainBackground>
+        <ScreenWrapper>
+          <NavigationEvents onWillBlur={clearErrorMessage} />
+          <AuthForm
+            headerText="Sign Up!"
+            errorMessage={state.errorMessage}
+            onSubmitForm={signup}
+            submitButtonText="Sign up"
+            name={name}
+          />
+          <NavigationLink
+            textLink="Already have an acconut? Sign in instead."
+            routeName={INavigationRoutes.Signin}
+          />
+        </ScreenWrapper>
+      </MainBackground>
     </>
   );
 };

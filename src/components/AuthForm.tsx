@@ -1,9 +1,9 @@
 import React, {useContext, useState} from 'react';
-import {Button} from 'react-native';
 import {Input} from 'react-native-elements';
 import {ThemeContext} from '../context/ThemeContext';
 import {IAuthFormProps} from '../models/IAuthForm';
 import {GetIcon, Heading, TextError, TextWrapper} from '../styled';
+import {CustomButton} from '../styled/CustomButton';
 
 const AuthForm: React.FC<IAuthFormProps> = ({
   headerText,
@@ -36,10 +36,16 @@ const AuthForm: React.FC<IAuthFormProps> = ({
         autoCapitalize="none"
         autoCorrect={false}></Input>
       {errorMessage ? <TextError>{errorMessage}</TextError> : null}
-      <Button
+      <TextWrapper />
+      <CustomButton
         title={submitButtonText}
+        backgroundColor=""
         onPress={() => onSubmitForm({email, password})}
       />
+      {/* <Button
+        title={submitButtonText}
+        onPress={() => onSubmitForm({email, password})}
+      /> */}
     </>
   );
 };
