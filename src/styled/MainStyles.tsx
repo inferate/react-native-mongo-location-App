@@ -25,19 +25,18 @@ export const GetIcon = (props: IIcon) => {
   );
 };
 export const TextWrapper = styled(View)`
-  margin: 15px;
+  margin: 10px;
 `;
 
 export const ScreenWrapper = styled(View)`
   flex: 1;
   justify-content: center;
-  margin-bottom: 12%;
   align-self: center;
   width: 80%;
 `;
 
 export const Heading = styled(Text)`
-  font-size: 30px;
+  font-size: 28px;
   font-weight: bold;
   text-align: center;
 `;

@@ -13,6 +13,7 @@ import {MainBackground, ScreenWrapper} from '../styled/MainStyles';
 interface ISignup {
   navigation: NavigationScreenProp<NavigationParams>;
   name: string;
+  navigationOptions: any;
 }
 
 const SignupScreen: React.FC<ISignup> = ({name}) => {
@@ -40,8 +41,8 @@ const SignupScreen: React.FC<ISignup> = ({name}) => {
     </>
   );
 };
+// SignupScreen.navigationOptions = {
+//   header: null,
+// };
 
-SignupScreen.navigationOptions = {
-  header: null,
-};
 export default SignupScreen;

@@ -42,10 +42,6 @@ const AuthForm: React.FC<IAuthFormProps> = ({
         backgroundColor=""
         onPress={() => onSubmitForm({email, password})}
       />
-      {/* <Button
-        title={submitButtonText}
-        onPress={() => onSubmitForm({email, password})}
-      /> */}
     </>
   );
 };
