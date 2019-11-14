@@ -47,6 +47,7 @@ captures/
 *.iml
 .idea/workspace.xml
 .idea/tasks.xml
+.idea/codeStyles
 .idea/gradle.xml
 .idea/assetWizardSettings.xml
 .idea/dictionaries
