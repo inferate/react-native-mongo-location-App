@@ -4,6 +4,7 @@ import {createStackNavigator} from 'react-navigation-stack';
 import {createBottomTabNavigator} from 'react-navigation-tabs';
 import {ThemeProvider} from 'styled-components';
 import {Provider as AuthProvider} from './src/context/AuthContext';
+import {Provider as LocationProvider} from './src/context/LocationContext';
 import {setNavigator} from './src/navigation/navigationRef';
 import AccountScreen from './src/screens/AccountScreen';
 import CreateTrack from './src/screens/CreateTrack';
@@ -19,10 +20,17 @@ import {theme} from './src/styled/withTheme';
 // }
 const switchNavigator = createSwitchNavigator({
   ResolveAuth: ResolveAuthScreen,
-  login: createStackNavigator({
-    Signin: SigninScreen,
-    Signup: SignupScreen,
-  }),
+  login: createStackNavigator(
+    {
+      Signin: SigninScreen,
+      Signup: SignupScreen,
+    },
+    {
+      defaultNavigationOptions: {
+        header: null,
+      },
+    },
+  ),
   main: createBottomTabNavigator({
     trackFlow: createStackNavigator({
       TrackList: TrackList,
@@ -36,14 +44,16 @@ const App = createAppContainer(switchNavigator);
 
 export default () => {
   return (
-    <AuthProvider>
-      <ThemeProvider theme={theme}>
-        <App
-          ref={navigator => {
-            setNavigator(navigator);
-          }}
-        />
-      </ThemeProvider>
-    </AuthProvider>
+    <LocationProvider>
+      <AuthProvider>
+        <ThemeProvider theme={theme}>
+          <App
+            ref={navigator => {
+              setNavigator(navigator);
+            }}
+          />
+        </ThemeProvider>
+      </AuthProvider>
+    </LocationProvider>
   );
 };

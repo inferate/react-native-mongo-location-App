@@ -1,5 +1,5 @@
 import {EActionTypes} from '../enums/EActionTypes';
-import {ITrackBaseAction} from './actionTypes';
+import {ITrackBaseAction, ITrackBaseLocationAction} from './actionTypes';
 
 export interface IGetSignupAction extends ITrackBaseAction {
   type: EActionTypes.SIGNIN;
@@ -17,4 +17,9 @@ export interface IGetClearErrorAction extends ITrackBaseAction {
 
 export interface IGetSignoutAction extends ITrackBaseAction {
   type: EActionTypes.SIGNOUT;
+}
+
+export interface IGetCurrentLocation extends ITrackBaseLocationAction {
+  type: EActionTypes.ADD_CURRENT_LOCATION;
+  payload: {};
 }

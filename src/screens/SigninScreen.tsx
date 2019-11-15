@@ -39,7 +39,4 @@ const SigninScreen: React.FC<ISignup> = ({name}) => {
   );
 };
 
-SigninScreen.navigationOptions = {
-  header: null,
-};
 export default SigninScreen;
